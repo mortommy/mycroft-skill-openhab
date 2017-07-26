@@ -46,7 +46,7 @@ If on picroft just skip the workon part and the directory will be /opt/mycroft/s
 
 ```
 cd ~/.mycroft/skills
-git clone https://github.com/btotharye/mycroft-homeassistant HomeAssistantSkill
+git clone https://github.com/mortommy/skill-openhab skill-openhab
 workon mycroft
 cd skill-openhab
 pip install -r requirements.txt
