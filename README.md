@@ -22,14 +22,6 @@ Color KitchenLight "Kitchen Light" <light> (gKitchen) [ "Lighting" ] {channel="h
 Switch 	GoodNight "Good Night"	[ "Switchable" ]	
 ```
 
-The items are searched by label, so the items for the above examples could be:
-
-```
-Color DiningroomLight "Diningroom Light" <light> (gKitchen) [ "Lighting" ] {channel="hue:0200:1:bloom1:color"}
-Color KitchenLight "Kitchen Light" <light> (gKitchen) [ "Lighting" ] {channel="hue:0200:1:bloom1:color"}
-Switch 	GoodNight "Good Night"	[ "Switchable" ]	
-```
-
 If items are modified in openhab, a refresh in Mycroft is needed by the command:
 
 ```
