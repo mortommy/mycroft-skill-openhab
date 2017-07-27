@@ -51,6 +51,16 @@ workon mycroft
 cd skill-openhab
 pip install -r requirements.txt
 ```
+## Configuration
+
+Add the block below to your mycoft.ini file (`~/.mycroft/mycroft.ini`)
+
+```
+ "OpenHabSkill": {
+        "host": "openhab server ip",
+        "port": "openhab server port"
+      }
+```
 
 ## TODO
  * add commands for Lighting tagged items: dim, bright
