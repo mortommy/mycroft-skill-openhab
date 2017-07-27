@@ -61,6 +61,7 @@ Add the block below to your mycoft.ini file (`~/.mycroft/mycroft.ini`)
         "port": "openhab server port"
       }
 ```
+Restart mycroft
 
 ## TODO
  * add commands for Lighting tagged items: dim, bright
