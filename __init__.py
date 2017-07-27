@@ -22,6 +22,7 @@ import json
 # v 0.5 - refresh labeled item intent
 # v 0.6 - add findItemName method and import fuzzywuzzy
 # v 0.7 - add intent for switchable items
+# v 0.8 - merged lighting and switchable intent in onoff intent
 
 __author__ = 'mortommy'
 
@@ -40,7 +41,7 @@ class OpenHabSkill(MycroftSkill):
 		
 		self.lightingItemsDic = dict()
 		self.switchableItemsDic = dict()
-		self.getLabeledItems()		
+		self.getTaggedItems()		
 			
 	def initialize(self):
 		self.load_data_files(dirname(__file__))
@@ -48,14 +49,11 @@ class OpenHabSkill(MycroftSkill):
 		refresh_labeled_items_intent = IntentBuilder("RefreshLabeledItemsIntent").require("RefreshLabeledItemsKeyword").build()
 		self.register_intent(refresh_labeled_items_intent, self.handle_refresh_labeled_items_intent)
 		
-		light_status_intent = IntentBuilder("LightStatusIntent").require("LightStatusKeyword").require("Command").require("Item").build()
-		self.register_intent(light_status_intent, self.handle_light_status_intent)		
-		
-		switch_status_intent = IntentBuilder("SwitchStatusIntent").require("SwitchStatusKeyword").require("Command").require("Item").build()
-		self.register_intent(switch_status_intent, self.handle_switch_status_intent)
+		onoff_status_intent = IntentBuilder("OnOff_StatusIntent").require("OnOffStatusKeyword").require("Command").require("Item").build()
+		self.register_intent(onoff_status_intent, self.handle_onoff_status_intent)
 			
-	def getLabeledItems(self):
-		#find all the items labeled Lighting and Switchable from OH
+	def getTaggedItems(self):
+		#find all the items tagged Lighting and Switchable from OH
 		#the labeled items are stored in dictionaries
 		
 		self.lightingItemsDic = {}
@@ -100,17 +98,21 @@ class OpenHabSkill(MycroftSkill):
 	def handle_refresh_labeled_items_intent(self, message):
 		#to refresh the oh items labeled list we use an intent, we can ask Mycroft to make the refresh
 		
-		self.getLabeledItems()
+		self.getTaggedItems()
 		dictLenght = str(len(self.lightingItemsDic) + len(self.switchableItemsDic))
 		self.speak_dialog('RefreshLabeledItems', {'number_item': dictLenght})
 	
-	def handle_light_status_intent(self, message):
+	def handle_onoff_status_intent(self, message):
 		
 		command = message.data["Command"]
         messageItem = message.data["Item"]
 				
-		#We have to find the item to update from our Lights dictionary
-		ohItem = self.findItemName(self.lightingItemsDic, messageItem)
+		#We have to find the item to update from our dictionaries
+		self.lightingSwitchableItemsDic = dict()
+		self.lightingSwitchableItemsDic.update(self.lightingItemsDic)
+		self.lightingSwitchableItemsDic.update(self.switchableItemsDic)
+		
+		ohItem = self.findItemName(self.lightingSwitchableItemsDic, messageItem)
 		
 		if ohItem != None:
 			if (command != "on") and (command != "off"):
@@ -118,38 +120,7 @@ class OpenHabSkill(MycroftSkill):
 			else:
 				statusCode = self.sendCommandToItem(ohItem, command.upper())
 				if statusCode == 200:
-					if command == "on":
-						self.speak_dialog('LightStatusOn', {'switch_item': messageItem})
-					else:
-						self.speak_dialog('LightStatusOff', {'switch_item': messageItem})
-				elif statusCode == 404:
-					LOGGER.error("Some issues with the command execution!. Item not found")
-					self.speak_dialog('ItemNotFoundError')
-				else:
-					LOGGER.error("Some issues with the command execution!")
-					self.speak_dialog('CommunicationError')
-		else:
-			LOGGER.error("Item not found!")
-			self.speak_dialog('ItemNotFoundError')
-			
-	def handle_switch_status_intent(self, message):
-		
-		command = message.data["Command"]
-		messageItem = message.data["Item"]
-				
-		#We have to find the item to update from our Switchs dictionary
-		ohItem = self.findItemName(self.switchableItemsDic, messageItem)
-		
-		if ohItem != None:
-			if (command != "on") and (command != "off"):
-				self.speak_dialog('ErrorDialog')
-			else:
-				statusCode = self.sendStatusToItem(ohItem, command.upper())
-				if statusCode == 202:
-					if command == "on":
-						self.speak_dialog('SwitchStatusOn', {'switch_item': messageItem})
-					else:
-						self.speak_dialog('SwitchStatusOff', {'switch_item': messageItem})
+					self.speak_dialog('StatusOnOff', {'command': command, 'item': messageItem})
 				elif statusCode == 404:
 					LOGGER.error("Some issues with the command execution!. Item not found")
 					self.speak_dialog('ItemNotFoundError')
