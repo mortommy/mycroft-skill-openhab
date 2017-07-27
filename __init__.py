@@ -105,7 +105,7 @@ class OpenHabSkill(MycroftSkill):
 	def handle_onoff_status_intent(self, message):
 		
 		command = message.data["Command"]
-        messageItem = message.data["Item"]
+        	messageItem = message.data["Item"]
 				
 		#We have to find the item to update from our dictionaries
 		self.lightingSwitchableItemsDic = dict()
