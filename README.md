@@ -4,7 +4,7 @@ This skill adds [Openhab](http://www.openhab.org/) support to [Mycroft](https://
 The skill takes advantage of Openhab REST API so it works both with the v1.0 and v2.0 of OH.  
 
 In order to make the oh items public to Mycroft will need to be [tagged](http://docs.openhab.org/addons/io/homekit/readme.html).
-The current version supports only Lighting and Switchable tags and the commands ON and OFF.
+The current version (v 0.8) supports only Lighting and Switchable tags and the commands ON and OFF.
 
 Some sample commands are:
 
