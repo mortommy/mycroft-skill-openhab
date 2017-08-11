@@ -4,7 +4,6 @@ This skill adds [Openhab](http://www.openhab.org/) support to [Mycroft](https://
 The skill takes advantage of Openhab REST API so it works both with the v1.0 and v2.0 of OH.  
 
 In order to make the oh items public to Mycroft will need to be [tagged](http://docs.openhab.org/addons/io/homekit/readme.html).
-The current version (v 0.8) supports only Lighting and Switchable tags and the commands ON and OFF.
 
 Some sample commands are:
 
@@ -12,6 +11,9 @@ Some sample commands are:
 - Hey Mycroft, turn on Diningroom Light
 - Hey Mycroft, switch off Kitchen Light
 - Hey Mycroft, put on Good Night
+- Hey Mycroft, set Diningroom to 50
+- Hey Mycroft, dim Kitchen
+- Hey Mycroft, brighten Kitchen
 ```
 
 The items are searched by label, so the items for the above examples could be:
@@ -27,6 +29,10 @@ If items are modified in openhab, a refresh in Mycroft is needed by the command:
 ```
 - Hey Mycroft, refresh the openhab items
 ```
+
+## Versions Change log
+0.9 added dimming command to item tagged as Lighting
+0.8 supports only Lighting and Switchable tags, commands ON and OFF
 
 ## Installation
 
@@ -55,6 +61,6 @@ Add the block below to your mycoft.ini file (`~/.mycroft/mycroft.ini`)
 Restart mycroft
 
 ## TODO
- * add commands for Lighting tagged items: dim, bright
+
  * add current item status request
  * add support for Thermostat tagged items
