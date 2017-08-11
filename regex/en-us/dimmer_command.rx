@@ -1,0 +1,2 @@
+(set) (?P<Item>.*) (to) (?P<BrigthPercentage>\d*)
+(dim|brighten) (?P<Item>.*)
