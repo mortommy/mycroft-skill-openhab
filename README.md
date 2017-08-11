@@ -31,8 +31,8 @@ If items are modified in openhab, a refresh in Mycroft is needed by the command:
 ```
 
 ## Versions Change log
-0.9 added dimming command to item tagged as Lighting
-0.8 supports only Lighting and Switchable tags, commands ON and OFF
+* 0.9 added dimming command to item tagged as Lighting
+* 0.8 supports only Lighting and Switchable tags, commands ON and OFF
 
 ## Installation
 
