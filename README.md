@@ -14,6 +14,7 @@ Some sample commands are:
 - Hey Mycroft, set Diningroom to 50
 - Hey Mycroft, dim Kitchen
 - Hey Mycroft, brighten Kitchen
+- Hey Mycroft, dim Kitchen by 20
 ```
 
 The items are searched by label, so the items for the above examples could be:
