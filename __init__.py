@@ -108,9 +108,9 @@ class OpenHabSkill(MycroftSkill):
 	
 	def handle_onoff_status_intent(self, message):
 		
-		command = message.data["Command"]
-        messageItem = message.data["Item"]
-				
+		command = message.data.get('Command')
+		messageItem = message.data.get('Item')
+						
 		#We have to find the item to update from our dictionaries
 		self.lightingSwitchableItemsDic = dict()
 		self.lightingSwitchableItemsDic.update(self.lightingItemsDic)
@@ -137,7 +137,8 @@ class OpenHabSkill(MycroftSkill):
 	
 	def handle_dimmer_status_intent(self, message):
 		command = message.data.get('DimmerStatusKeyword')
-		messageItem = message.data["DimmerItem"]
+		messageItem = message.data.get('Item')
+		brightValue = message.data.get('BrigthPercentage', None)
 				
 		statusCode = 0
 		
@@ -145,7 +146,7 @@ class OpenHabSkill(MycroftSkill):
 		
 		if ohItem != None:
 			if (command == "set"):
-				brightValue = message.data["BrigthPercentage"]
+				#brightValue = message.data["BrigthPercentage"]
 				if ((int(brightValue) < 0) or (int(brightValue) > 100)):
 					self.speak_dialog('ErrorDialog')
 				else:
@@ -155,14 +156,17 @@ class OpenHabSkill(MycroftSkill):
 				state = self.getCurrentItemStatus(ohItem)
 				
 				if (state != None):
-					#dim or brighten the value by 10
+					#dim or brighten the value
 					curBrightList = state.split(',')
 					curBright = int(curBrightList[len(curBrightList)-1])
 					
+					if(brightValue == None):
+						brightValue = "10"
+										
 					if (command == "dim"):
-						newBrightValue = curBright-10
+						newBrightValue = curBright-(int(brightValue))
 					else:
-						newBrightValue = curBright+10
+						newBrightValue = curBright+(int(brightValue))
 				
 					if (newBrightValue < 0):
 						newBrightValue = 0
