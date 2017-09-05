@@ -3,8 +3,6 @@
 This skill adds [openHAB](http://www.openhab.org/) support to [Mycroft](https://mycroft.ai).
 The skill takes advantage of the openHAB REST API, so it works both with the v1.x and v2.x of OH.  
 
-In order to make openHAB Items accessible to Mycroft, they need to be [tagged](http://docs.openhab.org/addons/io/homekit/readme.html).
-
 Some sample voice commands are:
 
 - *"Hey Mycroft, turn on Diningroom Light"*
@@ -25,7 +23,10 @@ Some sample voice commands are:
 
 ## openHAB Item Configuration
 
-Your openHAB Items are searched by Label, so Items for the above examples could be defined as:
+In order to make openHAB Items accessible to Mycroft, they need to be [tagged](http://docs.openhab.org/addons/io/homekit/readme.html).
+Device names recognized by Mycroft are matched against openHAB Item Labels.
+
+The above examples would all work with the following set of openHAB Item definitons:
 
 ```java
 Color DiningroomLight "Diningroom Light" <light> (gKitchen) [ "Lighting" ] {channel="hue:0200:1:bloom1:color"}
