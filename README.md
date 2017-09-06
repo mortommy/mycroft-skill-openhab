@@ -1,7 +1,7 @@
 # openHAB skill for Mycroft
 
 This skill adds [openHAB](http://www.openhab.org/) support to [Mycroft](https://mycroft.ai).
-The skill takes advantage of the openHAB REST API, so it works both with the v1.x and v2.x of OH.  
+The skill takes advantage of the openHAB REST API, so it works both with the v1.x and v2.x of openHAB.  
 
 Some sample voice commands are:
 
@@ -60,7 +60,7 @@ If on picroft just skip the workon part and the directory will be `/opt/mycroft/
 
 ```shell
 cd ~/.mycroft/skills
-git clone https://github.com/mortommy/skill-openhab skill-openhab
+git clone https://github.com/mortommy/mycroft-skill-openhab skill-openhab
 workon mycroft
 cd skill-openhab
 pip install -r requirements.txt
@@ -71,9 +71,9 @@ pip install -r requirements.txt
 Add the block below to your `mycoft.conf` file:
 
 ```json
- "OpenHabSkill": {
-        "host": "openhab server ip",
-        "port": "openhab server port"
+ "openHABSkill": {
+        "host": "openHAB server ip",
+        "port": "openHAB server port"
       }
 ```
 

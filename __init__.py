@@ -18,7 +18,7 @@ import json
 # v 0.1 - just switch on and switch off a fix light
 # v 0.2 - code review
 # v 0.3 - first working version on fixed light item
-# v 0.4 - getTaggedItems method in order to get all the tagged items from OH
+# v 0.4 - getTaggedItems method in order to get all the tagged items from openHAB
 # v 0.5 - refresh tagged item intent
 # v 0.6 - add findItemName method and import fuzzywuzzy
 # v 0.7 - add intent for switchable items
@@ -30,10 +30,10 @@ __author__ = 'mortommy'
 
 LOGGER = getLogger(__name__)
 
-class OpenHabSkill(MycroftSkill):
+class openHABSkill(MycroftSkill):
 	
 	def __init__(self):
-		super(OpenHabSkill, self).__init__(name="OpenHabSkill")
+		super(openHABSkill, self).__init__(name="openHABSkill")
 				
 		self.url = "http://%s:%s/rest" % (self.config.get('host'), self.config.get('port'))
 				
@@ -69,7 +69,7 @@ class OpenHabSkill(MycroftSkill):
 		self.register_intent(setTemp_status_intent, self.handle_setTemp_status_intent)
 			
 	def getTaggedItems(self):
-		#find all the items tagged Lighting and Switchable from OH
+		#find all the items tagged Lighting and Switchable from openHAB
 		#the labeled items are stored in dictionaries
 		
 		self.lightingItemsDic = {}
@@ -128,7 +128,7 @@ class OpenHabSkill(MycroftSkill):
 		return bestItem
 	
 	def handle_refresh_tagged_items_intent(self, message):
-		#to refresh the oh items labeled list we use an intent, we can ask Mycroft to make the refresh
+		#to refresh the openHAB items labeled list we use an intent, we can ask Mycroft to make the refresh
 		
 		self.getTaggedItems()
 		dictLenght = str(len(self.lightingItemsDic) + len(self.switchableItemsDic) + len(self.currentTempItemsDic) + len(self.currentHumItemsDic) + len(self.currentThermostatItemsDic) + len(self.targetTemperatureItemsDic) + len(self.homekitHeatingCoolingModeDic))
@@ -318,4 +318,4 @@ class OpenHabSkill(MycroftSkill):
 		pass
 	 
 def create_skill():
-    return OpenHabSkill()
+    return openHABSkill()
