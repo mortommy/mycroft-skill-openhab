@@ -8,10 +8,10 @@ Some sample voice commands are:
 - *"Hey Mycroft, turn on Diningroom Light"*
 - *"Hey Mycroft, switch off Kitchen Light"*
 - *"Hey Mycroft, put on Good Night"*
-- *"Hey Mycroft, set Diningroom to 50"*
+- *"Hey Mycroft, set Diningroom to 50 percent"*
 - *"Hey Mycroft, dim Kitchen"*
 - *"Hey Mycroft, brighten Kitchen"*
-- *"Hey Mycroft, dim Kitchen by 20"*
+- *"Hey Mycroft, dim Kitchen by 20 percent"*
 - *"Hey Mycroft, what's Bedroom temperature?"*
 - *"Hey Mycroft, what's Bedroom humidity?"*
 - *"Hey Mycroft, adjust Main Thermostat to 21 degrees"*
